@@ -770,8 +770,9 @@ fecha_inicial.addEventListener("change",(event)=>{clonarMes();});
     const date = new Date()
     let zona = date.getTimezoneOffset()
     let hora = date.getHours()
-    if(zona==480){}else{
-      horas = zona/60
+    let horas = zona/60
+    let x
+    if(zona!=480){
       if(horas<8){
           x = 8 - horas
           hora = hora - x

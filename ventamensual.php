@@ -102,12 +102,14 @@ async function imprimir(total){
       str= str.replace("ticketserial=", "");
       var datos = str.split('|');
       var datosSize = datos.length;
-      let meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago',,'Sep','Oct','Nov','Dic']
-      let semanas = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab']
-      const date = new Date()
-      let zona = date.getTimezoneOffset()
-      let hora = date.getHours()
-      if(zona==480){}else{
+        let meses_array = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+        let semanas = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab']
+        const date = new Date()
+        let zona = date.getTimezoneOffset()
+        let hora = date.getHours()
+        let horas = zona/60
+        let x
+        if(zona!=480){
         horas = zona/60
         if(horas<8){
             x = 8 - horas
