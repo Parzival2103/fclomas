@@ -3,7 +3,8 @@
 //CONSULTAS SQL
 
 function conexion(){
-    $conex = mysqli_connect("68.70.163.36","villanov_admin","Qazzaqwerrew1B","villanov_fracc");
+    $config = require __DIR__ . '/config.php';
+    $conex = mysqli_connect($config['host'], $config['user'], $config['password'], $config['name']);
     $conex->query("SET lc_time_names = 'es_ES'");
     $conex->set_charset("utf8");
     return $conex;

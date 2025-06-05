@@ -161,7 +161,8 @@
                 <!-- End of Topbar -->
 
 <?php
-    $conex = mysqli_connect("68.70.163.36","villanov_admin","Qazzaqwerrew1B","villanov_fracc");
+    $config = require __DIR__ . '/config.php';
+    $conex = mysqli_connect($config['host'], $config['user'], $config['password'], $config['name']);
     $conex->query("SET CHARACTER SET utf8");
     $conex->query("SET lc_time_names = 'es_ES'");
     $host = $_SERVER['HTTP_HOST'];
