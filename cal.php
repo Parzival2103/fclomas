@@ -765,7 +765,7 @@ fecha_inicial.addEventListener("change",(event)=>{clonarMes();});
     folio = folio.replace("folio=","");
 
 
-    let meses_array = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago',,'Sep','Oct','Nov','Dic']
+    let meses_array = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
     let semanas = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab']
     const date = new Date()
     let zona = date.getTimezoneOffset()
