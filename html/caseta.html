@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>OCR desde Raspberry Pi</title>
+</head>
+<body>
+  <h3>🔗 URL de ngrok</h3>
+  <p>
+    <input type="text" id="urlNgrok" size="80" placeholder="Pega aquí tu URL pública de ngrok (sin /procesar)" />
+  </p>
+  <h2>Captura de Credencial INE y Placa Vehicular</h2>
+
+  <h3>Cámara 1 - Credencial:</h3>
+  <video id="video1" width="320" height="240" autoplay></video>
+  <canvas id="canvas1" width="320" height="240" style="display:none;"></canvas>
+  <button onclick="capturarCredencial()">📸 Capturar credencial</button>
+
+  <h3>Cámara 2 - Placa:</h3>
+  <video id="video2" width="320" height="240" autoplay></video>
+  <canvas id="canvas2" width="320" height="240" style="display:none;"></canvas>
+  <button onclick="capturarPlaca()">📸 Capturar placa</button>
+
+  <h3>O subir una imagen directamente:</h3>
+  <form id="formArchivo" enctype="multipart/form-data">
+    <input type="file" name="imagen" id="imagen" accept="image/*" required>
+    <button type="submit">📤 Procesar imagen</button>
+  </form>
+
+  <h3>OCR completo:</h3>
+  <textarea id="ocrTexto" rows="10" cols="80" readonly></textarea>
+
+  <h3>Formulario de datos</h3>
+  <form id="formulario" method="POST" action="guardar.php">
+    <p><strong>Nombre(s):</strong> <input type="text" name="nombres" id="nombres"></p>
+    <p><strong>Apellido paterno:</strong> <input type="text" name="apellido_paterno" id="apellido_paterno"></p>
+    <p><strong>Apellido materno:</strong> <input type="text" name="apellido_materno" id="apellido_materno"></p>
+    <p><strong>Sexo:</strong> <input type="text" name="sexo" id="sexo"></p>
+    <p><strong>Clave de elector:</strong> <input type="text" name="clave" id="clave"></p>
+    <p><strong>CURP:</strong> <input type="text" name="curp" id="curp"></p>
+    <p><strong>Dirección:</strong> <input type="text" name="direccion" id="direccion" size="60"></p>
+    <p><strong>Fecha de nacimiento:</strong> <input type="text" name="fecha_nacimiento" id="fecha_nacimiento"></p>
+    <p><strong>Sección:</strong> <input type="text" name="seccion" id="seccion"></p>
+    <p><strong>Vigencia:</strong> <input type="text" name="vigencia" id="vigencia"></p>
+    <p><strong>Placa del vehículo:</strong> <input type="text" name="placa_vehiculo" id="placa_vehiculo"></p>
+    <button type="submit">💾 Guardar</button>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.5/dist/tesseract.min.js"></script>
+  <script>
+    let devices = [];
+    let stream1, stream2;
+
+    navigator.mediaDevices.enumerateDevices().then(mediaDevices => {
+      devices = mediaDevices.filter(device => device.kind === 'videoinput');
+      
+
+      navigator.mediaDevices.getUserMedia({ video: { deviceId: devices[0].deviceId } }).then(stream => {
+        stream1 = stream;
+        document.getElementById('video1').srcObject = stream;
+      });
+
+      navigator.mediaDevices.getUserMedia({ video: { deviceId: devices[3].deviceId } }).then(stream => {
+        stream2 = stream;
+        document.getElementById('video2').srcObject = stream;
+      });
+    });
+
+    async function capturarCredencial() {
+      const canvas = document.getElementById('canvas1');
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video1, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
+      enviarImagenAFlask(blob);
+    }
+
+    async function capturarPlaca() {
+      const canvas = document.getElementById('canvas2');
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video2, 0, 0, canvas.width, canvas.height);
+      const dataURL = canvas.toDataURL('image/jpeg');
+
+      const { data: { text } } = await Tesseract.recognize(dataURL, 'eng');
+      const limpia = text.replace(/\s+/g, '').trim();
+      document.getElementById('placa_vehiculo').value = limpia;
+      console.log("🚗 Placa detectada:", limpia);
+    }
+
+    // Subida desde archivo
+    document.getElementById('formArchivo').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const archivo = document.getElementById('imagen').files[0];
+      if (!archivo) return;
+      enviarImagenAFlask(archivo);
+    });
+
+    async function enviarImagenAFlask(blob) {
+      const baseUrl = document.getElementById('urlNgrok').value.trim();
+      if (!baseUrl.startsWith('http')) {
+        alert("❌ Por favor ingresa una URL válida de ngrok");
+        return;
+      }
+
+      const urlCompleta = baseUrl.endsWith('/')
+        ? baseUrl + 'procesar'
+        : baseUrl + '/procesar';
+
+      const formData = new FormData();
+      formData.append('imagen', blob, 'imagen.jpg');
+      console.log("🌐 Enviando a:", urlCompleta);
+      try {
+        const respuesta = await fetch(urlCompleta, {
+          method: 'POST',
+          body: formData
+        });
+
+        const resultado = await respuesta.json();
+        console.log("📦 Resultado recibido:", resultado);
+
+        document.getElementById('ocrTexto').value = resultado.ocr_completo || '';
+
+        const datos = resultado.datos_estructurados || {};
+        const campos = {
+          nombres: 'nombres',
+          apellido_paterno: 'apellido_paterno',
+          apellido_materno: 'apellido_materno',
+          sexo: 'sexo',
+          clave: 'clave_elector',
+          curp: 'curp',
+          direccion: 'direccion',
+          fecha_nacimiento: 'fecha_nacimiento',
+          seccion: 'seccion',
+          vigencia: 'vigencia'
+        };
+
+        for (const id in campos) {
+          const val = datos[campos[id]] || '';
+          document.getElementById(id).value = val;
+        }
+
+      } catch (error) {
+        console.error("❌ Error en OCR:", error);
+        alert("No se pudo conectar al servidor OCR.");
+      }
+    }
+
+  </script>
+</body>
+</html>

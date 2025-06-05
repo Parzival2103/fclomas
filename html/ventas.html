@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta de Venta Diaria</title>
+</head>
+<body>
+
+  <label for="fecha-inicio">Desde:</label>
+  <input type="date" id="fecha-inicio">
+
+  <label for="fecha-fin">Hasta:</label>
+  <input type="date" id="fecha-fin">
+
+  <button id="buscar">Buscar</button>
+
+
+  <script>
+    document.getElementById('buscar').addEventListener('click', function () {
+      const desde = document.getElementById('fecha-inicio').value;
+      const hasta = document.getElementById('fecha-fin').value;
+
+      if (!desde || !hasta) {
+        alert("Selecciona ambas fechas.");
+        return;
+      }
+
+      fetch('consultar_ventas.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `desde=${desde}&hasta=${hasta}`
+      })
+      .then(response => response.text())
+      .then(data => {
+        // Esperamos que el PHP regrese tabla + mensaje (separados por algún marcador)
+        const [tabla, mensaje] = data.split('<!--MSG-->');
+        document.getElementById('resultado').innerHTML = tabla;
+        document.getElementById('mensajePHP').textContent = mensaje.trim();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+
+</body>
+</html>
