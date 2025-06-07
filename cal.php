@@ -276,6 +276,7 @@ if(isset($_POST['submit'])){
                                 $numerocasa = $row['numerocasa'];
                                 $monto=$row['cantidad'];
                                 $calle=$row['calle'];
+                                $nombre=$row['nombre'];
                                 $um=$row['info'];
                                 $info = "$nombre, $um";
                                 echo "
@@ -341,6 +342,7 @@ if(isset($_POST['submit'])){
     ";
     $bottom_table="</tbody></table></div>";
     $result_tasks=mysqli_query($conex,$query);
+    $datatable_data = "";
     while($row=mysqli_fetch_assoc($result_tasks)){
         $id_tarjeta=$row['id'];
         $domicilio=$row['domicilio'];

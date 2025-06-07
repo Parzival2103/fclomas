@@ -412,7 +412,6 @@ function reticula(){
             $nombre=$row['nombre'];
             $y=$row['y'];
             $m=$row['m'];
-            $h=$row['h'];
             $pago=$row['pago'];
             $name="$nombre $y";
             if($pago==1){$str="checked";}else{$str="";}
