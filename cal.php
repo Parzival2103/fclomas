@@ -262,8 +262,8 @@ if(isset($_POST['submit'])){
                             LEFT JOIN Domicilios on Domicilios.id = Tickets.domicilioid 
                             LEFT JOIN Usuarios on Usuarios.id = Tickets.usuarioid
                             LEFT JOIN Calles ON Calles.id = Domicilios.calleid 
-                            where domicilioid=$domicilioid and Tickets.statusid=1
-                            ORDER by Tickets.fechaticket  DESC;";
+                            where Domicilios.id=$domicilioid and Tickets.statusid=1
+                            ORDER by Tickets.fechaticket DESC;";
                             $result_tasks = mysqli_query($conex,$query);
                             while($row = mysqli_fetch_assoc($result_tasks)){
                                 $id = $row['Tid'];

@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include 'auth.php';
 
 if(isset($_SESSION['auth_key'])){

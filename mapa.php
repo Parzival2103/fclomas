@@ -22,7 +22,7 @@ if($_SESSION['auth_key']>1){
     <div class='row'>
     <div class='col-5 mobile_view'>$botones_laterales</div>
     <div class='col-2 mobile'><button class='calles-centro calles btn btn-$color btn-icon-split btn-lg' style='padding-top: 40px;height: $btn_center_height.01px;' onclick='imprimir()'>
-    NUEVO RESIDENTE&emsp;&emsp;&emsp;NUEVO RESIDENTE&emsp;&emsp;&emsp;NUEVO RESIDENTE&emsp;&emsp;&emsp;NUEVO RESIDENTE</button></div>
+    NUEVO RESIDENTE</button></div>
     <div class='col-5 mobile'>$botones_laterales</div>
     </div>
     ";

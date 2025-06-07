@@ -1,7 +1,0 @@
-[06-Jun-2025 23:53:06 America/Mexico_City] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user ''@'localhost' (using password: NO) in /home/villanov/fclomas.com/functions.php on line 7
-[06-Jun-2025 23:53:06 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/villanov/fclomas.com/functions.php:8
-Stack trace:
-#0 /home/villanov/fclomas.com/auth.php(4): conexion()
-#1 /home/villanov/fclomas.com/mapa.php(3): include('/home/villanov/...')
-#2 {main}
-  thrown in /home/villanov/fclomas.com/functions.php on line 8

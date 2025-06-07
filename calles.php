@@ -1,6 +1,5 @@
 
 <?php
-session_start();
 include('auth.php');
     if($_SESSION['auth_key']>1){
     $id=$_GET['calle'];
