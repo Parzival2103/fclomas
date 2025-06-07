@@ -1,6 +1,7 @@
 <?php session_start();
 include 'head.php';
 include 'functions.php';
+$conex = conexion();
 
 if(!isset($_SESSION['auth_key'])){
     echo "

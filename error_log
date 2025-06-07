@@ -1,0 +1,3 @@
+[06-Jun-2025 23:23:01 America/Mexico_City] PHP Notice:  session_start(): A session had already been started - ignoring in /home/villanov/fclomas.com/auth.php on line 1
+[06-Jun-2025 23:23:04 America/Mexico_City] PHP Notice:  session_start(): A session had already been started - ignoring in /home/villanov/fclomas.com/auth.php on line 1
+[06-Jun-2025 23:23:06 America/Mexico_City] PHP Notice:  session_start(): A session had already been started - ignoring in /home/villanov/fclomas.com/auth.php on line 1

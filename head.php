@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Fraccionamiento Chapultepec California</title>
+    <title>Fraccionamiento Lomas de Chapultepec</title>
 
     <!-- Tipo de letra personalizado para esta plantilla-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Frac. <sup>Chapultepec California</sup></div>
+                <div class="sidebar-brand-text mx-3">Frac. <sup>Lomas de Chapultepec</sup></div>
             </a>
 
             <!-- Divider -->
@@ -160,16 +160,7 @@
                 </nav>
                 <!-- End of Topbar -->
 
-<?php
-    $config = require __DIR__ . '/config.php';
-    $conex = mysqli_connect($config['host'], $config['user'], $config['password'], $config['name']);
-    $conex->query("SET CHARACTER SET utf8");
-    $conex->query("SET lc_time_names = 'es_ES'");
-    $host = $_SERVER['HTTP_HOST'];
-    $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $url = "http://$host$ruta";
-    $url_auth = "http://$host$ruta/auth.php";
-?>
+
 <style>
     .calles{
         width: 80%;
