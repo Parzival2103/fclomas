@@ -65,9 +65,4 @@ if(isset($_GET['key'])){
         echo "<script type='text/javascript'>window.location.replace('$url');</script>";
     }
 }
-
-    
-
-
-
 ?>

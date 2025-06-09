@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-
 <head>
 
     <meta charset="utf-8">
@@ -9,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Fraccionamiento Lomas de Chapultepec</title>
+    <title>Fraccionamiento Chapultepec California</title>
 
     <!-- Tipo de letra personalizado para esta plantilla-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -25,142 +22,224 @@
 
 </head>
 
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <!-- SIDEBAR -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="mapa.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <!-- ICONO INICIO -->
+                    <!-- Clases del Icono -->
+                    <a 
+                        class="
+                            sidebar-brand 
+                            d-flex 
+                            align-items-center 
+                            justify-content-center" 
+                        href="mapa.php">
+                        <!-- Icono -->
+                            <div class="sidebar-brand-icon rotate-n-15">
+                                <i class="fas fa-laugh-wink"></i>
+                            </div>
+                        <!-- Termina Icono -->
+                        <!-- Texto del Icono -->
+                            <div 
+                                class="
+                                    sidebar-brand-text 
+                                    mx-3 
+                                    <?php if (!isset($_SESSION['auth_key'])){echo "d-none";} ?>
+                                ">
+                                <?php if (isset($_SESSION['auth_key'])){echo "Menu principal";} ?>
+                            </div>
+                        <!-- Termina Texto del Icono -->
+                    </a>
+                <!-- Termina ICONO INICIO -->
+
+                <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+                <!-- Termina Divider -->
+
+                <?php if (isset($_SESSION['auth_key'])): ?>
+
+                <!-- ITEM DE NAVEGACION -- (MAPA DEL FRACCIONAMIENTO)-->
+                    <li class="nav-item active">
+                        <!-- Opciones de Item -->
+                            <a class="nav-link" 
+                                href="mapa.php">
+                                <!-- Icono del Item -->
+                                <i class="fas fa-fw fa-tachometer-alt"></i>
+                                <!-- Nombre del Item -->
+                                <span>Mapa del Fraccionamiento</span>
+                            </a>
+                        <!-- Termina Opciones de Item -->
+
+                        <!-- Contenido del Item -->
+                            
+                        <!-- Termina Contenido del Item -->
+                    </li>
+                <!-- Termina ITEM DE NAVEGACION -- (MAPA DEL FRACCIONAMIENTO)-->
+
+                <!-- Divider -->
+                    <hr class="sidebar-divider">
+                <!-- Termina Divider -->
+
+                <!-- ITEM DE NAVEGACION -- (REPORTES)-->
+                    <li class="nav-item">
+                        <!-- Opciones de Item -->
+                            <a class="nav-link collapsed" 
+                                href="#" 
+                                data-toggle="collapse" 
+                                data-target="#collapseTwo"
+                                aria-expanded="true" 
+                                aria-controls="collapseTwo">
+                                <!-- Icono del Item -->
+                                <i class="fas fa-fw fa-chart-bar"></i>
+                                <!-- Nombre del Item -->
+                                <span>Reportes</span>
+                            </a>
+                        <!-- Termina Opciones de Item -->
+
+                        <!-- Contenido del Item -->
+                            <!-- MENU BARRA LATERAL -->
+                                <!-- Opciones menu barralateral -->
+                                    <div 
+                                    id="collapseTwo" 
+                                    class="collapse" 
+                                    aria-labelledby="headingTwo" 
+                                    data-parent="#accordionSidebar">
+                                <!-- Termina Opciones menu barralateral -->
+
+                                <!-- Contenedor de menu barralateral -->
+                                    <div class="bg-white py-2 collapse-inner rounded">
+
+                                        <!-- DIVISOR/TITULO -->
+                                            <h6 class="collapse-header">Ventas:</h6>
+                                                <!-- Opciones -->
+                                                <a class="collapse-item" href="ventadiaria.php">Venta Del dia</a>
+                                                <a class="collapse-item" href="ventamensual.php">Venta mensual</a>
+                                        <!-- Termina DIVISOR/TITULO -->
+                                        
+                                        <!-- DIVISOR/TITULO -->
+                                            <h6 class="collapse-header">Tarjetas:</h6>
+                                                <!-- Opciones -->
+                                                <a class="collapse-item" href="tarjetas.php">Tarjetas registradas</a>
+                                                <a class="collapse-item" href="activos.php">Tarjetas activas</a>
+                                        <!-- Termina DIVISOR/TITULO -->
+                                        
+                                    </div>
+                                <!-- Termina Contenedor de menu barralateral -->
+                            
+                                    </div>
+                            <!-- Termina MENU BARRA LATERAL -->
+                        <!-- Termina Contenido del Item -->
+                    </li>
+                <!-- Termina ITEM DE NAVEGACION -- (REPORTES)-->
+
+                <!-- Divider -->
+                    <hr class="sidebar-divider">
+                <!-- Termina Divider -->
+
+                <!-- ITEM DE NAVEGACION -- (REGISTROS)-->
+                    <li class="nav-item">
+                        <!-- Opciones de Item -->
+                            <a class="nav-link collapsed" 
+                                href="#" 
+                                data-toggle="collapse" 
+                                data-target="#collapseUtilities" 
+                                aria-expanded="true" 
+                                aria-controls="collapseUtilities"> <!-- 
+                                                                        data-target y aria-controls deben ser el mismo ID que el div 
+                                                                        del contenido que contendra el Item de Navegacion            -->
+                                <!-- Icono del Item -->
+                                <i class="fas fa-fw fa-wrench"></i>
+                                <!-- Nombre del Item -->
+                                <span>Registros</span>
+                            </a>
+                        <!-- Termina Opciones de Item -->
+
+                        <!-- Contenido del Item -->
+                            <!-- MENU BARRA LATERAL -->
+                                <!-- Opciones menu barralateral -->
+                                    <div 
+                                    id="collapseUtilities" 
+                                    class="collapse" 
+                                    aria-labelledby="headingUtilities" 
+                                    data-parent="#accordionSidebar">
+                                <!-- Termina Opciones menu barralateral -->
+
+                                <!-- Contenedor de menu barralateral -->
+                                    <div class="bg-white py-2 collapse-inner rounded">
+
+                                        <!-- DIVISOR/TITULO -->
+                                            <h6 class="collapse-header">Contabilidad:</h6>
+                                                <!-- Opciones -->
+                                                <a class="collapse-item" href="gastos.php">Gastos</a>
+                                        <!-- Termina DIVISOR/TITULO -->
+                                        
+                                        
+                                    </div>
+                                <!-- Termina Contenedor de menu barralateral -->
+                            
+                                    </div>
+                            <!-- Termina MENU BARRA LATERAL -->
+                        <!-- Termina Contenido del Item -->
+                    </li>
+                <!-- Termina ITEM DE NAVEGACION -- (REGISTROS)-->
+
+                <!-- Divider -->
+                    <hr class="sidebar-divider">
+                <!-- Termina Divider -->
+
+                <!-- ITEM DE NAVEGACION -- (CERRAR SESION)-->
+                    <li class="nav-item active">
+                        <!-- Opciones de Item -->
+                            <a class="nav-link" 
+                                href="logout.php">
+                                <!-- Icono del Item -->
+                                <i class="fas fa-sign-out-alt"></i>
+                                <!-- Nombre del Item -->
+                                <span>Cerrar Sesión</span>
+                            </a>
+                        <!-- Termina Opciones de Item -->
+
+                        <!-- Contenido del Item -->
+                            
+                        <!-- Termina Contenido del Item -->
+                    </li>
+                <!-- Termina ITEM DE NAVEGACION -- (CERRAR SESION)-->
+
+                <?php endif; ?>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
-                <div class="sidebar-brand-text mx-3">Frac. <sup>Lomas de Chapultepec</sup></div>
-            </a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            </ul>
+        <!-- Termina SIDEBAR -->
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="mapa.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Mapa del Fraccionamiento</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-chart-bar"></i>
-                    <span>Reportes</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Ventas:</h6>
-                        <a class="collapse-item" href="ventadiaria.php">Venta Del dia</a>
-                        <a class="collapse-item" href="ventamensual.php">Venta mensual</a>
-                        <h6 class="collapse-header">Tarjetas:</h6>
-                        <a class="collapse-item" href="tarjetas.php">Tarjetas registradas</a>
-                        <a class="collapse-item" href="activos.php">Tarjetas activas</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Registros</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Contabilidad:</h6>
-                        <a class="collapse-item" href="gastos.php">Gastos</a>
-                    </div>
-                </div>
-            </li>
-
-
-            <!-- Heading ->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu ->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts ->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables ->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
+        <!-- CONTENIDO EN CADA PAGINA -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content" style="text-align: center;">
-
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button> 
-
+                    <button 
+                    id="sidebarToggleTop" 
+                    class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
                 </nav>
-                <!-- End of Topbar -->
-
-
+           
 <style>
     .calles{
         width: 80%;
@@ -269,3 +348,5 @@
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
 <script src="plugin_impresora_termica.js"></script>
+
+<!-- la clase "d-none d-md-inline" hace que los elementos desaparezcan cuando se cambia a la vista en pantallas pequeñas -->

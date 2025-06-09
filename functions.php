@@ -669,5 +669,16 @@ function actualizar_residente($id,$nombre,$telefono){
 function historial_de_tarjetas(){
     
 }
-?>
 
+function cerrar_sesion() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    session_unset();
+    session_destroy();
+    urlset('auth.php');
+    exit();
+}
+
+
+?>

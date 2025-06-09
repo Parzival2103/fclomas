@@ -62,7 +62,6 @@ if(isset($_SESSION['auth_key'])){
             $rango=$row['rango'];
             $cantidad=$row['cantidad'];
             $comentario=$row['comentario'];
-            $total=$row['total'];
             $datatable_data=$datatable_data."
                     <tr>
                         <td>$id</td>
@@ -118,6 +117,7 @@ async function imprimir(total){
             x = horas - 8
             hora = hora + x
         }
+        delete x
       }
       let minutos = date.getMinutes()
       let ys = ''
