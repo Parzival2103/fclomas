@@ -37,14 +37,18 @@ if(isset($_POST['session_try'])){
     $host = $_SERVER['HTTP_HOST'];
     $ruta = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     $url = "http://$host$ruta/mapa.php";
-    echo $url;
-    $query="SELECT * FROM Usuarios where password=$auth_key AND statusid=1";
+    $query="SELECT * FROM Usuarios where password='$auth_key' AND statusid=1";
     $result_tasks = mysqli_query($conex,$query);
+    $result_rows = mysqli_num_rows($result_tasks);
+    if($result_rows==0){
+        //si no encuentra la contraseña descodificada buscara codificada con md5
+        $auth_key=md5($auth_key);
+        $query="SELECT * FROM Usuarios where password='$auth_key' AND statusid=1";
+        $result_tasks = mysqli_query($conex,$query);
+    }
     while($row=mysqli_fetch_assoc($result_tasks)){
-        $auth_key=$row['permisosid'];
-        $_SESSION['auth_key']=$auth_key;
+        $_SESSION['auth_key']=$row['permisosid'];
         $_SESSION['usuarioid']=$row['id'];
-        echo 'llave='.$_SESSION['auth_key'];
         echo "<script type='text/javascript'>window.location.replace('$url');</script>";
     }
 }
@@ -57,11 +61,16 @@ if(isset($_GET['key'])){
     $url = "http://$host$ruta/mapa.php";
     $query="SELECT * FROM Usuarios where password=$auth_key AND statusid=1";
     $result_tasks = mysqli_query($conex,$query);
+    $result_rows = mysqli_num_rows($result_tasks);
+    if($result_rows==0){
+        //si no encuentra la contraseña descodificada buscara codificada con md5
+        $auth_key=md5($auth_key);
+        $query="SELECT * FROM Usuarios where password='$auth_key' AND statusid=1";
+        $result_tasks = mysqli_query($conex,$query);
+    }
     while($row=mysqli_fetch_assoc($result_tasks)){
-        $auth_key=$row['permisosid'];
-        $_SESSION['auth_key']=$auth_key;
+        $_SESSION['auth_key']=$row['permisosid'];
         $_SESSION['usuarioid']=$row['id'];
-        echo 'llave='.$_SESSION['auth_key'];
         echo "<script type='text/javascript'>window.location.replace('$url');</script>";
     }
 }
